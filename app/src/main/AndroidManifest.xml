@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Library">
         <activity
+            android:name=".CategoryAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".DashboardAdminActivity"
             android:exported="false" />
         <activity

@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.example.library.databinding.ActivityMainBinding
 import com.example.library.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -81,7 +82,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun updateUserInfo() {
         progressDialog.setMessage("მიმდინარეობს მონაცემების შენახვა...")
-        val timestamp = System.currentTimeMills()
 
         val uid = firebaseAuth.uid
 
@@ -90,9 +90,10 @@ class RegisterActivity : AppCompatActivity() {
         hashMap["email"] = email
         hashMap["name"] = name
         hashMap["profileImage"] = ""
-        hashMap["timestamp"] = timestamp
+        hashMap["userType"] = "user"
+//        hashMap["timestamp"] = timestamp
 
-        val ref = firebaseDatabase.getInstance().getReference("Users")
+        val ref = FirebaseDatabase.getInstance().getReference("users")
         ref.child(uid!!)
             .setValue(hashMap)
             .addOnSuccessListener {
