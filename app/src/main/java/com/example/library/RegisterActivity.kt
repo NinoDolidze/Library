@@ -101,5 +101,9 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(Intent(this@RegisterActivity, DashboardUserActivity::class.java))
                 finish()
             }
+            .addOnFailureListener { e->
+                progressDialog.dismiss()
+                Toast.makeText(this, "მონაცემების შენახვა ვერ მოხერხდა", Toast.LENGTH_SHORT).show()
+            }
     }
 }
