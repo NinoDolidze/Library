@@ -76,6 +76,7 @@ class AdapterCategory :RecyclerView.Adapter<AdapterCategory.HolderCategory>, Fil
 
     override fun getItemCount(): Int {
         return categoryArrayList.size
+
     }
 
 
