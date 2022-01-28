@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".PdfAddActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbarRL"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/shape_toolbar">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_white"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/iconImage"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/backButton"/>
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="დაამატეთ ახალი წიგნი"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/iconImage"
+            android:textSize="25sp"
+            android:textColor="@color/white"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_attach_white"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:padding="5dp"/>
+
+    </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titleTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:hintEnabled="false"
+        android:layout_marginTop="225dp">
+
+        <EditText
+            android:id="@+id/titleEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_edittext"
+            android:drawableStart="@drawable/ic_pdf_gray"
+            android:hint="წიგნის სათაური"
+            android:drawablePadding="10dp"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descriptionTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_below="@id/titleTil"
+        android:layout_marginTop="5dp"
+        app:hintEnabled="false">
+
+        <EditText
+            android:id="@+id/descriptionEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_edittext"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:hint="წიგნის აღწერა"
+            android:textSize="16sp"
+            android:drawableStart="@drawable/ic_pdf_gray"
+            android:drawablePadding="10dp"
+            android:inputType="textMultiLine"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/categoryTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descriptionTil"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/shape_edittext"
+        android:drawableStart="@drawable/ic_category_gray"
+        android:drawableEnd="@drawable/ic_down_gray"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="10dp"
+        android:hint="კატეგორია"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categoryTv"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="15dp"
+        android:text="დამატება"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>
