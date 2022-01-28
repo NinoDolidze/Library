@@ -53,7 +53,7 @@ class CategoryAddActivity : AppCompatActivity() {
     }
 
     private fun addCategoryFirebase() {
-        Toast.makeText(this, "ვერ მოხერხდა დამატება", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "ვერ მოხერხდა დამატება", Toast.LENGTH_SHORT).show()
         progressDialog.show()
 
         val timestamp = System.currentTimeMillis()
@@ -63,7 +63,7 @@ class CategoryAddActivity : AppCompatActivity() {
         hashMap["category"] = category
         hashMap["timestamp"] = timestamp
         hashMap["uid"] = "$(firebaseAuth.uid)"
-        hashMap["userType"] = "user"
+//        hashMap["userType"] = "user"
 
         val ref = FirebaseDatabase.getInstance().getReference("categories")
         ref.child("$timestamp")

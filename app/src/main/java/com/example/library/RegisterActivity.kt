@@ -84,6 +84,8 @@ class RegisterActivity : AppCompatActivity() {
         progressDialog.setMessage("მიმდინარეობს მონაცემების შენახვა...")
 
         val uid = firebaseAuth.uid
+        val timestamp = System.currentTimeMillis()
+
 
         val hashMap: HashMap<String, Any?> = HashMap()
         hashMap["uid"] = uid
@@ -91,7 +93,7 @@ class RegisterActivity : AppCompatActivity() {
         hashMap["name"] = name
         hashMap["profileImage"] = ""
         hashMap["userType"] = "user"
-//        hashMap["timestamp"] = timestamp
+        hashMap["timestamp"] = timestamp
 
         val ref = FirebaseDatabase.getInstance().getReference("users")
         ref.child(uid!!)

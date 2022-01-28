@@ -30,9 +30,9 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-//        progressDialog.ProgressDialog(this)
-//        progressDialog.setTitle("გთხოვთ მოიცადოთ")
-//        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("გთხოვთ მოიცადოთ")
+        progressDialog.setCanceledOnTouchOutside(false)
 
         binding.noAccountTv.setOnClickListener{
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
         email = binding.emailEt.text.toString().trim()
         password = binding.passwordEt.text.toString().trim()
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toast.makeText(this, "შეიყვანეთ სწორი ელ-ფოსტის მისამართი", Toast.LENGTH_SHORT).show()
         }
         else if (password.isEmpty()) {
@@ -60,8 +60,7 @@ class LoginActivity : AppCompatActivity() {
         else {
             loginUser()
         }
-
-
+        
     }
 
     private fun loginUser() {
