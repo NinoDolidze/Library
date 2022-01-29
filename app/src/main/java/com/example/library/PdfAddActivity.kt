@@ -2,6 +2,7 @@ package com.example.library
 
 import android.app.Application
 import android.app.ProgressDialog
+import android.app.TaskStackBuilder
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +15,14 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.example.library.databinding.ActivityPdfAddBinding
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import kotlin.math.log
 
 class PdfAddActivity : AppCompatActivity() {
 
@@ -46,6 +49,10 @@ class PdfAddActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("გთხოვთ მოიცადოთ")
         progressDialog.setCanceledOnTouchOutside(false)
+
+        binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
         
         binding.categoryTv.setOnClickListener { 
             categoryPickDialog()
@@ -106,12 +113,57 @@ class PdfAddActivity : AppCompatActivity() {
 
         val storageReference = FirebaseStorage.getInstance().getReference(filePathAndName)
         storageReference.putFile(pdfUri!!)
+            .addOnSuccessListener {taskSnapshot ->
+                Log.d(TAG, "uploadPdfToStorage: PDF uploaded now getting url...")
+
+                val uriTask: Task<Uri> = taskSnapshot.storage.downloadUrl
+                while (!uriTask.isSuccessful);
+                val uploadedPdfUrl = "${uriTask.result}"
+
+                uploadPdfInfoToDb(uploadedPdfUrl, timestamp)
+            }
+            .addOnFailureListener { e->
+                Log.d(TAG, "uploadPdfToStorage: Failed to upload due to ${e.message}")
+                progressDialog.dismiss()
+                Toast.makeText(this, "ატვირთვა ვერ მოხერხდა", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun uploadPdfInfoToDb(uploadedPdfUrl: String, timestamp: Long) {
+        Log.d(TAG, "uploadPdfInfoToDb: uploading to db")
+        progressDialog.setMessage("იტვირთება ინფორმაცია...")
+
+        val uid = firebaseAuth.uid
+
+        val hashMap: HashMap<String, Any> = HashMap()
+        hashMap["uid"] = "$uid"
+        hashMap["id"] = "$timestamp"
+        hashMap["title"] = "$title"
+        hashMap["description"] = "$description"
+        hashMap["categoryId"] = "$selectedCategoryId"
+        hashMap["timestamp"] = timestamp
+        hashMap["viewCount"] = 0
+        hashMap["downloadsCount"] = 0
+
+        val ref = FirebaseDatabase.getInstance().getReference("Books")
+        ref.child("$timestamp")
+            .setValue(hashMap)
             .addOnSuccessListener {
-
+                Log.d(TAG, "uploadPdfInfoToDb: uploaded to db")
+                progressDialog.dismiss()
+                Toast.makeText(this, "წარმატებით აიტვირთა", Toast.LENGTH_SHORT).show()
+                pdfUri = null
             }
-            .addOnFailureListener {
-
+            .addOnFailureListener { e->
+                Log.d(TAG, "uploadPdfInfoToDb: Failed to upload due to ${e.message}")
+                progressDialog.dismiss()
+                Toast.makeText(this, "ატვირთვა ვერ მოხერხდა", Toast.LENGTH_SHORT).show()
             }
+
+
+
+
+
     }
 
     private fun loadPdfCategories() {
