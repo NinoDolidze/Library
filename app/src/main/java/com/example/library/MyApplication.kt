@@ -3,7 +3,14 @@ package com.example.library
 import android.app.Application
 import android.text.format.DateFormat
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
+import com.github.barteksc.pdfviewer.PDFView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
@@ -47,5 +54,66 @@ class MyApplication: Application() {
                     Log.d(TAG, "loadPdfSize: Failed to get metadata due to ${e.message}")
                 }
         }
+
+        fun loadPdfFromUrlSinglePage(
+            pdfUrl: String,
+            pdfTitle: String,
+            pdfView: PDFView,
+            progressBar: ProgressBar,
+            pagesTv: TextView?
+        ){
+
+            val TAG = "PDF_THUMBNAIL_TAG"
+
+            val ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl)
+            ref.getBytes(Constants.MAX_BYTES_PDF)
+                .addOnSuccessListener {bytes->
+                    Log.d(TAG, "loadPdfSize: Size Bytes $bytes")
+
+                    pdfView.fromBytes(bytes)
+                        .pages(0)
+                        .spacing(0)
+                        .swipeHorizontal(false)
+                        .enableSwipe(false)
+                        .onError {t->
+                            progressBar.visibility = View.INVISIBLE
+                            Log.d(TAG, "loadPdfFromUrlSinglePage: ${t.message}")
+                        }
+                        .onPageError { page, t ->
+                            progressBar.visibility = View.INVISIBLE
+                            Log.d(TAG, "loadPdfFromUrlSinglePage: ${t.message}")
+                        }
+                        .onLoad { nbPages->
+                            progressBar.visibility = View.INVISIBLE
+
+                            if (pagesTv != null){
+                                pagesTv.text = "$nbPages"
+                            }
+                        }
+                }
+                .addOnFailureListener {e->
+                    Log.d(TAG, "loadPdfSize: Failed to get metadata due to ${e.message}")
+                }
+
+        }
+
+
+        fun loadCategory(categoryId: String, categoryTv: TextView){
+            val ref = FirebaseDatabase.getInstance().getReference("categories")
+            ref.child(categoryId)
+                .addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val category = "${snapshot.child("category").value}"
+
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
+        }
     }
+
+
 }
