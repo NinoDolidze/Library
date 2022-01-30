@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Library">
         <activity
+            android:name=".PdfListActivity"
+            android:exported="false" />
+        <activity
             android:name=".PdfAddActivity"
             android:exported="false" />
         <activity
