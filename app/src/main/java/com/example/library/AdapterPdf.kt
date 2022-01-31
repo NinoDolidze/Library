@@ -4,21 +4,27 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.library.databinding.RowPdfBinding
 
-class AdapterPdf : RecyclerView.Adapter<AdapterPdf.HolderPdfAdmin> {
+class AdapterPdf : RecyclerView.Adapter<AdapterPdf.HolderPdfAdmin>, Filterable {
 
     private var context: Context
 
-    private var pdfArrayList: ArrayList<ModelPdf>
+    public var pdfArrayList: ArrayList<ModelPdf>
 
+    private val filterList: ArrayList<ModelPdf>
 
     private lateinit var binding:RowPdfBinding
+
+    var filter: FilterPdf? = null
 
     constructor(context: Context, pdfArrayList: ArrayList<ModelPdf>) : super() {
         this.context = context
         this.pdfArrayList = pdfArrayList
+        this.filterList = pdfArrayList
     }
 
 
@@ -42,13 +48,23 @@ class AdapterPdf : RecyclerView.Adapter<AdapterPdf.HolderPdfAdmin> {
         holder.descriptionTv.text = description
         holder.dateTv.text = formattedDate
 
-        MyApplication.loadCategory()
+        MyApplication.loadCategory(categoryId, holder.categoryTv)
 
+        MyApplication.loadPdfFromUrlSinglePage(pdfUrl, title, holder.pdfView, holder.progressBar, null)
+
+        MyApplication.loadPdfSize(pdfUrl, title, holder.sizeTv)
 
     }
 
     override fun getItemCount(): Int {
         return pdfArrayList.size
+    }
+
+    override fun getFilter(): Filter {
+        if (filter == null){
+            filter = FilterPdf(filterList, this)
+        }
+        return filter as FilterPdf
     }
 
     inner class HolderPdfAdmin(itemView: View) : RecyclerView.ViewHolder(itemView){
