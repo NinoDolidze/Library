@@ -34,6 +34,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:layout_above="@+id/bookOptionsLl"
         android:layout_width="match_parent"
         android:padding="10dp"
         android:layout_below="@id/toolbarRL"
@@ -216,5 +217,26 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bookOptionsLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/design_default_color_on_primary">
+
+        <Button
+            android:id="@+id/readBookButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="წაკითხვა"
+            android:drawableTop="@drawable/ic_book_white"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="#9F9F9F"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
