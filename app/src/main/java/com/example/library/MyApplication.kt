@@ -107,14 +107,16 @@ class MyApplication: Application() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val category = "${snapshot.child("category").value}"
 
-
+                        categoryTv.text = category
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+
                     }
                 })
         }
+
+
     }
 
 

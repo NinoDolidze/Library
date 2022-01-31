@@ -1,6 +1,7 @@
 package com.example.library
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,12 @@ class AdapterPdf : RecyclerView.Adapter<AdapterPdf.HolderPdfAdmin>, Filterable {
         MyApplication.loadPdfFromUrlSinglePage(pdfUrl, title, holder.pdfView, holder.progressBar, null)
 
         MyApplication.loadPdfSize(pdfUrl, title, holder.sizeTv)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, PdfDetailActivity::class.java)
+            intent.putExtra("bookId", pdfId)
+            context.startActivity(intent)
+        }
 
     }
 
