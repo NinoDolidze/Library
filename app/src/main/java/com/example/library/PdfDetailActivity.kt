@@ -21,7 +21,7 @@ class PdfDetailActivity : AppCompatActivity() {
 
         bookId = intent.getStringExtra("bookId")!!
 
-        incrementBookViewCount(bookId)
+        MyApplication.incrementBookViewCount(bookId)
 
         loadBookDetails()
 
