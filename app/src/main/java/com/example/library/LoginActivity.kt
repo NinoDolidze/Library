@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
 
         val firebaseUser = firebaseAuth.currentUser!!
 
-        val ref = FirebaseDatabase.getInstance().getReference("Users")
+        val ref = FirebaseDatabase.getInstance().getReference("users")
         ref.child(firebaseUser.uid)
             .addListenerForSingleValueEvent(object  : ValueEventListener{
 

@@ -21,8 +21,8 @@ class SplashActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         Handler().postDelayed(Runnable {
-//            startActivity(Intent(this, MainActivity::class.java))
-//            finish()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
             checkUser()
         }, 3000)
     }
@@ -34,7 +34,7 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
         else {
-            val ref = FirebaseDatabase.getInstance().getReference("Users")
+            val ref = FirebaseDatabase.getInstance().getReference("users")
             ref.child(firebaseUser.uid)
                 .addListenerForSingleValueEvent(object  : ValueEventListener {
 
