@@ -61,7 +61,7 @@ class AdapterCategory :RecyclerView.Adapter<AdapterCategory.HolderCategory>, Fil
         }
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, PdfListActivity::class.java)
+            val intent = Intent(context, PdfListAdminActivity::class.java)
             intent.putExtra("categoryId", id)
             intent.putExtra("category", category)
             context.startActivity(intent)
@@ -71,7 +71,7 @@ class AdapterCategory :RecyclerView.Adapter<AdapterCategory.HolderCategory>, Fil
 
     private fun deleteCategory(model: ModelCategory, holder: HolderCategory) {
         val id = model.id
-        val ref = FirebaseDatabase.getInstance().getReference("Categories")
+        val ref = FirebaseDatabase.getInstance().getReference("categories")
         ref.child(id)
             .removeValue()
             .addOnSuccessListener {

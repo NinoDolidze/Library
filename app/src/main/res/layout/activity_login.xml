@@ -95,7 +95,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
                 android:padding="5dp"
-                android:text="დამავიწყდა პაროლი"/>
+                android:text="" />
 
             <Button
                 android:id="@+id/loginButton"

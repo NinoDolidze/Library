@@ -10,7 +10,8 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.library.databinding.RowPdfBinding
 
-class AdapterPdf : RecyclerView.Adapter<AdapterPdf.HolderPdfAdmin>, Filterable {
+class AdapterPdfAdmin : RecyclerView.Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable {
+
 
     private var context: Context
 
@@ -18,7 +19,7 @@ class AdapterPdf : RecyclerView.Adapter<AdapterPdf.HolderPdfAdmin>, Filterable {
 
     private val filterList: ArrayList<ModelPdf>
 
-    private lateinit var binding:RowPdfBinding
+    private lateinit var binding: RowPdfBinding
 
     var filter: FilterPdf? = null
 
@@ -36,6 +37,7 @@ class AdapterPdf : RecyclerView.Adapter<AdapterPdf.HolderPdfAdmin>, Filterable {
     }
 
     override fun onBindViewHolder(holder: HolderPdfAdmin, position: Int) {
+
         val model = pdfArrayList[position]
         val pdfId = model.id
         val categoryId = model.categoryId

@@ -6,11 +6,11 @@ class FilterPdf: Filter {
 
     var filterList: ArrayList<ModelPdf>
 
-    var adapterPdf: AdapterPdf
+    var adapterPdfAdmin: AdapterPdfAdmin
 
-    constructor(filterList: ArrayList<ModelPdf>, adapterPdf: AdapterPdf) {
+    constructor(filterList: ArrayList<ModelPdf>, adapterPdfAdmin: AdapterPdfAdmin) {
         this.filterList = filterList
-        this.adapterPdf = adapterPdf
+        this.adapterPdfAdmin = adapterPdfAdmin
     }
 
     override fun performFiltering(constraint: CharSequence?): FilterResults {
@@ -35,8 +35,10 @@ class FilterPdf: Filter {
         return results
     }
 
-    override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+    override fun publishResults(constraint: CharSequence, results: FilterResults) {
+        adapterPdfAdmin.pdfArrayList = results!!.values as ArrayList<ModelPdf>
 
+        adapterPdfAdmin.notifyDataSetChanged()
     }
 
 

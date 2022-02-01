@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import com.example.library.databinding.ActivityPdfListBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class PdfListActivity : AppCompatActivity() {
+class PdfListAdminActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPdfListBinding
 
@@ -23,8 +22,9 @@ class PdfListActivity : AppCompatActivity() {
     private var categoryId = ""
     private var category = ""
 
-    private lateinit var pdfArrayList: ArrayList<ModelPdf>
-    private lateinit var adapterPdf: AdapterPdf
+    private lateinit var pdfArrayList:ArrayList<ModelPdf>
+
+    private lateinit var adapterPdfAdmin: AdapterPdfAdmin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class PdfListActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, p1: Int, p2: Int, p3: Int) {
                 try {
-                    adapterPdf.filter!!.filter(s)
+                    adapterPdfAdmin.filter!!.filter(s)
                 }
                 catch (e: Exception){
                     Log.d(TAG, "onTextChanged: ${e.message}")
@@ -61,6 +61,7 @@ class PdfListActivity : AppCompatActivity() {
     }
 
     private fun loadPdfList() {
+
         pdfArrayList = ArrayList()
 
         val ref = FirebaseDatabase.getInstance().getReference("Books")
@@ -75,7 +76,8 @@ class PdfListActivity : AppCompatActivity() {
                             Log.d(TAG, "onDataChange: ${model.title} ${model.categoryId}")
                         }
                     }
-
+//                    adapterPdfAdmin = AdapterPdfAdmin(this@PdfListAdminActivity, pdfArrayList)
+//                    binding.booksRv.adapter = adapterPdfAdmin
                 }
 
                 override fun onCancelled(error: DatabaseError) {

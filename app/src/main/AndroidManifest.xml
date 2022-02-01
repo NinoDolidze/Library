@@ -17,7 +17,7 @@
             android:name=".PdfDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".PdfListActivity"
+            android:name=".PdfListAdminActivity"
             android:exported="false" />
         <activity
             android:name=".PdfAddActivity"

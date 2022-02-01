@@ -13,6 +13,7 @@ class ModelPdf {
     var downloadsCount:Long = 0
 
     constructor()
+
     constructor(
         uid: String,
         id: String,

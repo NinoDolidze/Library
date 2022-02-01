@@ -125,7 +125,7 @@ class PdfAddActivity : AppCompatActivity() {
             .addOnFailureListener { e->
                 Log.d(TAG, "uploadPdfToStorage: Failed to upload due to ${e.message}")
                 progressDialog.dismiss()
-                Toast.makeText(this, "ატვირთვა ვერ მოხერხდა", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "ატვირთვა ვერ მოხერხდა ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -159,10 +159,6 @@ class PdfAddActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 Toast.makeText(this, "ატვირთვა ვერ მოხერხდა", Toast.LENGTH_SHORT).show()
             }
-
-
-
-
 
     }
 

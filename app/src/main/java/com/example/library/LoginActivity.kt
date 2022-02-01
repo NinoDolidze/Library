@@ -71,9 +71,9 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 checkUser()
             }
-            .addOnFailureListener {
+            .addOnFailureListener {e->
                 progressDialog.dismiss()
-                Toast.makeText(this, "სისტემაში შესვლა ვერ მოხერხდა", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "სისტემაში შესვლა ვერ მოხერხდა ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
