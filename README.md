@@ -1,7 +1,14 @@
 ### My Library
+ 
+'My Library' is developed using kotlin programming language.
 
-#### this application allows users to upload and read PDF files. 
-'My Library' helps to sort out books by categories.
+### Firebase services used in the application
+* Firebase Authentication
+* Firebase Realtime Database
+* Firebase Storage
+
+
+#### This application helps users to upload, read and sort out books by categories.
 #### users can start using the app with or without registration.  
 
 ![photoscreen2](https://user-images.githubusercontent.com/93850018/151911532-30865b3f-d7b0-4fc6-8f3e-82e423956061.png)
@@ -24,3 +31,5 @@
 
 
 ![photoscreen4](https://user-images.githubusercontent.com/93850018/151912486-6709aed8-bef2-4a3e-9e82-41b1d92e3bc8.png)
+
+
